@@ -1,0 +1,172 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>simplemusic</title>
+  <link rel="stylesheet" href="styles-core.css">
+  <link rel="stylesheet" href="styles-video.css">
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,900&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <button id="standbyButton" class="standby-button">
+    <span class="material-icons">schedule</span>
+  </button>
+
+  <div id="standbyMode" class="standby-overlay">
+    <div class="standby-close">
+      <span class="material-icons">close</span>
+    </div>
+    <div class="center">
+      <div class="stand-by">
+        <div class="clock">
+          <div class="points"></div>
+          <div class="minutes"></div>
+          <div class="seconds"></div>
+          <div class="hours"></div>
+          <div class="pivot"></div>
+        </div>
+        <div class="player-info">
+          <img src="/Panic at The Disco - King of the Clouds.jpg" alt="Album Art" class="standby-album-art" id="standbyAlbumArt">
+          <div class="song-title" id="standbySongTitle">King of the Clouds</div>
+          <div class="artist-name" id="standbyArtistName">Panic! At The Disco</div>
+          <div class="standby-controls">
+            <span class="material-icons standby-control prev">skip_previous</span>
+            <span class="material-icons standby-control play-pause">play_arrow</span>
+            <span class="material-icons standby-control next">skip_next</span>
+            <span id="repeatButton" class="material-icons standby-control">repeat</span>
+          </div>
+          <div class="standby-video-container" id="standbyVideoContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dynamic-island" id="dynamicIsland">
+    <div class="island-content">
+      <div class="glass-layer"></div>
+      <img src="/Panic at The Disco - King of the Clouds.jpg" alt="Album Art" class="album-art">
+      <div class="song-info">
+        <h3>King of the Clouds</h3>
+        <p>Panic! At The Disco</p>
+      </div>
+      <div class="controls">
+        <span class="material-icons prev">chevron_left</span>
+        <span class="material-icons play-pause">play_arrow</span>
+        <span class="material-icons next">chevron_right</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <video class="video-frame" id="dynamicIslandVideo" controls></video>
+    </div>
+    <div class="player-content">
+      <button class="close-player material-icons">close</button>
+      <iframe 
+        class="spotify-iframe" 
+        src="https://open.spotify.com/embed/playlist/1BqCZILoo2B46lmzVNN1Re?utm_source=generator" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="playlist-button" id="openPlaylist">
+      <span class="material-icons">queue_music</span>
+    </div>
+    <div id="mobileWarning" class="visionos-modal">
+      <div class="visionos-modal-content">
+        <svg class="warning-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z"/>
+        </svg>
+        <h2>Mobile Device Detected</h2>
+        <p id="warningText">simplemusic is optimized for desktop experience. Some features may not work as expected on mobile devices.</p>
+        <button class="visionos-confirm" id="continueButton">Continue Anyway</button>
+        <button class="visionos-install-profile" id="installProfile" style="display: none;">Install Profile</button>
+      </div>
+    </div>
+    <h1>Music Videos</h1>
+    <div class="video-grid">
+      <div class="video-item" onclick="playVideo('Red Flags', 'Tom Cardy ft. Montaigne', '/Red Flags (ft. Montaigne) OFFICIAL VIDEO.mp3', '/Red Flags (ft. Montaigne) OFFICIAL VIDEO.mp4')">
+        <img src="/Red Flags (ft. Montaigne) OFFICIAL VIDEO.png" alt="Video Thumbnail">
+        <div class="play-overlay">
+          <span class="material-icons">play_circle_filled</span>
+        </div>
+        <h3>Red Flags</h3>
+        <p>Tom Cardy ft. Montaigne</p>
+      </div>
+    </div>
+    <h1>Your Library</h1>
+    <div class="playlist-grid">
+      <div class="playlist-item" onclick="playSong('Red Flags', 'Tom Cardy ft. Montaigne', '/Red Flags (ft. Montaigne) OFFICIAL VIDEO.mp3')">
+        <img src="/Red Flags (ft. Montaigne) OFFICIAL VIDEO.png" alt="Album Art">
+        <h3>Red Flags</h3>
+        <p>Tom Cardy ft. Montaigne</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('King of the Clouds', 'Panic! At The Disco', '/Panic at The Disco - King of the Clouds.mp3')">
+        <img src="/Panic at The Disco - King of the Clouds.jpg" alt="Album Art">
+        <h3>King of the Clouds</h3>
+        <p>Panic! At The Disco</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('Homage', 'Mild High Club', '/Homage.mp3')">
+        <img src="/Homage.jpg" alt="Album Art">
+        <h3>Homage</h3>
+        <p>Mild High Club</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('Wild Side', 'CyYu', '/Wild Side - CyYu .mp3')">
+        <img src="/Wild Side - CyYu .jpg" alt="Album Art">
+        <h3>Wild Side</h3>
+        <p>CyYu</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('High Beams', 'Tkay Maidza', '/Tkay Maidza - High Beams.mp3')">
+        <img src="/Tkay Maidza - High Beams.jpg" alt="Album Art">
+        <h3>High Beams</h3>
+        <p>Tkay Maidza</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('hellooo wowowow', 'rkz', '/rkz- hellooo wowowow.mp3')">
+        <img src="/rkz- hellooo wowowow.jpg" alt="Album Art">
+        <h3>hellooo wowowow</h3>
+        <p>rkz</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('Sign of the Times', 'Harry Styles', '/Harry Styles - Sign of Times.mp3')">
+        <img src="/Harry Styles - Sign of Times.jpg" alt="Album Art">
+        <h3>Sign of the Times</h3>
+        <p>Harry Styles</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('Symphony', 'Clean Bandit', '/Symphony - Clean Bandit (feat. Zara Larsson).mp3')">
+        <img src="/Symphony - Clean Bandit (feat. Zara Larsson).jpg" alt="Album Art">
+        <h3>Symphony</h3>
+        <p>Clean Bandit</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('Annihilate', 'Metro Boomin', '/Annihilate (Spider-Man_ Across the Spider-Verse) (Metro Boomin & Swae Lee, Lil Wayne, Offset).mp3')">
+        <img src="/Annihilate (Spider-Man_ Across the Spider-Verse) (Metro Boomin & Swae Lee, Lil Wayne, Offset).jpg" alt="Album Art">
+        <h3>Annihilate</h3>
+        <p>Metro Boomin</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('My Ordinary Life', 'The Living Tombstone', '/The Living Tombstone - My Ordinary Life.mp3')">
+        <img src="/The Living Tombstone - My Ordinary Life.jpg" alt="Album Art">
+        <h3>My Ordinary Life</h3>
+        <p>The Living Tombstone</p>
+      </div>
+      <div class="playlist-item" onclick="playSong('Finale', 'Undertale OST', '/Undertale OST 080 - Finale.mp3')">
+        <img src="/IMG_1263.jpeg" alt="Undertale Album Art">
+        <h3>Finale</h3>
+        <p>Undertale OST</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="dynamicIslandEvents.js"></script>
+  <script src="responsiveElements.js"></script>  
+</body>
+</html>

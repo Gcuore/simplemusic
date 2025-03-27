@@ -1,0 +1,670 @@
+:root {
+  --standby-player-height: 340px;
+}
+
+/* Core styles moved from styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+}
+
+body {
+  background: url('/nathan-dumlao-WdJetqSIlp4-unsplash.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+  color: white;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
+  z-index: -1;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.dynamic-island {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  border-radius: 24px;
+  padding: 12px;
+  width: 350px;
+  transition: 
+    width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s ease;
+  z-index: 1000;
+}
+
+.island-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.album-art {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.song-info {
+  flex-grow: 1;
+}
+
+.song-info h3 {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.song-info p {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.material-icons {
+  cursor: pointer;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  border-radius: 50%;
+  transition: 
+    background 0.3s ease,
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
+}
+
+.material-icons:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.15);
+}
+
+.progress-bar {
+  cursor: pointer;
+  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  height: 3px;
+  border-radius: 12px;
+}
+
+.progress-bar:hover .progress::after {
+  transform: scale(1);
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #fe5c73 0%, #ff9a5c 100%);
+  box-shadow: 0 0 12px rgba(254, 92, 115, 0.3);
+  border-radius: 12px;
+  transition: width 0.1s linear;
+}
+
+.progress::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(0, -50%) scale(0);
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.content {
+  padding: 100px 20px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content h1 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.playlist-item {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.2rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.playlist-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.playlist-item h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.playlist-item p {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.expanded {
+  width: 380px !important;
+  padding: 1.5rem;
+  border-radius: 24px;
+  transform: translateX(-50%) scale(1.08);
+}
+
+.expanded .album-art {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.expanded .song-info h3 {
+  font-size: 18px;
+}
+
+.expanded .song-info p {
+  font-size: 14px;
+}
+
+.expanded-player {
+  width: 500px !important;
+  height: 600px !important;
+  transform: translateX(-50%) scale(1) !important;
+}
+
+.player-content {
+  display: none;
+  height: 100%;
+}
+
+.spotify-iframe {
+  width: 100%;
+  height: calc(100% - 40px);
+  border: none;
+  border-radius: 18px;
+  background: #000;
+}
+
+#standbyMode .standby-close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: none;
+}
+
+#standbyMode.active .standby-close {
+  display: flex;
+}
+
+.playlist-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 
+    background 0.3s ease;
+}
+
+.playlist-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.15);
+}
+
+.playlist-button .material-icons {
+  font-size: 24px;
+  background: transparent;
+  padding: 0;
+}
+
+.visionos-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.visionos-modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 24px;
+  padding: 2rem;
+  width: 320px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.warning-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  color: #ff4757;
+}
+
+.visionos-modal h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.visionos-modal p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.visionos-confirm {
+  background: linear-gradient(45deg, #0A84FF, #0066CC);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.visionos-confirm:hover {
+  background: linear-gradient(45deg, #0066CC, #0A84FF);
+  transform: scale(1.03);
+}
+
+.visionos-install-profile {
+  background: linear-gradient(45deg, #34C759, #30D158);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 0.5rem;
+}
+
+.visionos-install-profile:hover {
+  background: linear-gradient(45deg, #30D158, #34C759);
+  transform: scale(1.03);
+}
+
+.standby-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.standby-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.standby-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 2001;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.standby-overlay.active {
+  display: block;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stand-by {
+  width: 90%;
+  height: 96%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: default;
+}
+
+.clock {
+  width: 400px;
+  height: var(--standby-player-height);
+  position: relative;
+  margin-right: 50px;
+  transition: transform 0.5s ease;
+}
+
+.points {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.point {
+  width: 1px;
+  height: 12px;
+  display: block;
+  border: 0.2mm solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0.8mm;
+  position: absolute;
+  top: calc(50% - 6px);
+  left: calc(50% - 0.3mm);
+}
+
+.point.big {
+  height: 14px;
+  width: 1px;
+  border: 0.3mm solid rgba(255, 255, 255, 0.8);
+  background: white;
+  top: calc(50% - 7px);
+  left: calc(50% - 0.2mm);
+}
+
+.point.big .text {
+  font-family: inter;
+  color: white;
+  position: absolute;
+  top: 100%;
+  font-size: 30px;
+  font-weight: 600;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  overflow: hidden;
+  left: calc(50% - 20px);
+}
+
+.seconds,
+.minutes,
+.hours {
+  width: 2px;
+  height: 155px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 1px);
+  border-radius: 0.6mm;
+  transform-origin: 1px 0;
+}
+
+.seconds {
+  height: 182px;
+  transform-origin: 1px 26px;
+  top: calc(50% - 26px);
+  background: orange;
+  transform: rotate(30deg);
+}
+
+.minutes,
+.hours {
+  background: white;
+}
+
+.hours {
+  height: 110px;
+  transform: rotate(-30deg);
+}
+
+.minutes::before,
+.hours::before {
+  position: absolute;
+  content: "";
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 12px;
+  height: calc(100% - 22px);
+  background: white;
+  border-radius: 2mm;
+}
+
+.pivot,
+.pivot::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: black;
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+.pivot::before {
+  content: "";
+  border: 3px solid orange;
+  width: 5px;
+  height: 5px;
+}
+
+.weather {
+  width: fit-content;
+  height: 400px;
+  margin-left: 50px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.location {
+  font-family: poppins;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location span {
+  margin-left: 5px;
+  font-size: 30px;
+}
+
+.temperature {
+  font-family: inter;
+  color: white;
+  font-size: 160px;
+  font-weight: 600;
+}
+
+.temperature sup {
+  font-family: poppins;
+  font-size: 100px;
+}
+
+.details {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.details .icon {
+  color: rgb(255, 182, 46);
+  font-size: 30px;
+}
+
+.details .info {
+  font-size: 28px;
+  color: white;
+  font-family: poppins;
+  font-weight: 500;
+}
+
+.player-info {
+  width: fit-content;
+  height: 400px;
+  margin-left: 50px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.standby-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.standby-control {
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.standby-control:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.standby-control.active {
+  color: #1DB954;
+  opacity: 1;
+}
+
+.song-title {
+  font-family: inter;
+  color: white;
+  font-size: 60px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.artist-name {
+  font-family: poppins;
+  color: rgba(255,255,255,0.8);
+  font-size: 40px;
+}
+
+.standby-album-art {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}

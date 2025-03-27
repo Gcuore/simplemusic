@@ -1,0 +1,134 @@
+/* Video-specific styles moved from styles.css */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.video-item {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.2rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 
+    transform 0.3s ease,
+    background 0.3s ease;
+  position: relative;
+}
+
+.video-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.video-item img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  object-fit: cover;
+}
+
+.video-item h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.video-item p {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 2.4rem);
+  height: calc(100% - 5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  margin: 1.2rem;
+}
+
+.play-overlay .material-icons {
+  font-size: 60px;
+  background: transparent;
+  color: white;
+  opacity: 0.9;
+}
+
+.video-item:hover .play-overlay {
+  opacity: 1;
+}
+
+.video-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+  display: none;
+}
+
+.expanded .video-frame {
+  display: block;
+  height: 260px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.standby-video-container {
+  width: 600px;
+  height: var(--standby-player-height);
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: none;
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+}
+
+.standby-video-container video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --standby-player-height: 202px;
+  }
+  
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  
+  .standby-video-container {
+    width: 360px;
+    height: var(--standby-player-height);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --standby-player-height: 157px;
+  }
+  
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .standby-video-container {
+    width: 280px;
+    height: var(--standby-player-height);
+  }
+}

@@ -1,0 +1,13 @@
+// Hide song info elements when video is active in standby mode:
+document.getElementById('standbyAlbumArt').style.display = 'none';
+document.getElementById('standbySongTitle').style.display = 'none';
+document.getElementById('standbyArtistName').style.display = 'none';
+const controls = document.querySelector('.standby-controls');
+if (controls) { controls.style.display = 'none'; }
+
+if (currentVideoUrl) {
+  const videoElement = document.getElementById('dynamicIslandVideo');
+  const islandContent = document.querySelector('.dynamic-island .island-content');
+  islandContent.appendChild(videoElement);
+  updateVideoVisibility();
+}
